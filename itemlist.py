@@ -10,8 +10,8 @@ items = {'melee':[
 		'femur',
 		'boneShiv',
 		'huntingKnife',
-		'machete'
-	],'weapons':[
+		'machete'],
+	'weapons':[
 		'gunPistol',
 		'gun44Magnum',
 		'gunSawedOffPumpShotgun',
@@ -23,8 +23,8 @@ items = {'melee':[
 		'gunRocketLauncher',
 		'blunderbuss',
 		'woodenBow',
-		'crossbow'
-	],'tools':[
+		'crossbow'],
+	'tools':[
 		'stoneAxe',
 		'tazasStoneaxe',
 		'fireaxeIron',
@@ -39,8 +39,8 @@ items = {'melee':[
 		'clawHammer',
 		'nailgun',
 		'chainsaw',
-		'auger'
-	],'ammunition':[
+		'auger'],
+	'ammunition':[
 		'9mmBullet',
 		'10mmBullet',
 		'44MagBullet',
@@ -57,14 +57,14 @@ items = {'melee':[
 		'crossbowBolt',
 		'ironCrossbowBolt',
 		'steelCrossbowBolt',
-		'explodingCrossbowBolt'
-	],'explosives':[
+		'explodingCrossbowBolt'],
+	'explosives':[
 		'pipeBomb',
 		'dynamite',
 		'flare',
 		'rockSmall',
-		'turd'
-	],'parts:'[
+		'turd'],
+	'parts':[
 		'partsMaster',
 		'partsPistol_grip',
 		'partsPistol_receiver',
@@ -110,8 +110,8 @@ items = {'melee':[
 		'minibikeWheels',
 		'padlock',
 		'minibikeHandlebars',
-		'shoppingBasketItem'
-	],'armor':[
+		'shoppingBasketItem'],
+	'armor':[
 		'plantFiberPants',
 		'plantFiberShirt',
 		'plantFiberHood',
@@ -151,8 +151,8 @@ items = {'melee':[
 		'hazmatPants',
 		'hazmatShirt',
 		'hazmatGloves',
-		'hazmatMask'
-	],'clothes':[
+		'hazmatMask'],
+	'clothes':[
 		'cowboyHat',
 		'blackCowboyHat',
 		'plantFiberHat',
@@ -216,8 +216,8 @@ items = {'melee':[
 		'tshirtBrown',
 		'tshirtGreen',
 		'tshirtBlue',
-		'tshirtBlack'
-	],'health':[
+		'tshirtBlack'],
+	'health':[
 		'splint',
 		'aloeCream',
 		'bandage',
@@ -277,8 +277,8 @@ items = {'melee':[
 		'redTea',
 		'coffee',
 		'beer',
-		'grainAlcohol'
-	],'books':[
+		'grainAlcohol'],
+	'books':[
 		'schematicMaster',
 		'invisibleRecipesForRepairCost',
 		'clubSpikedSchematic',
@@ -323,8 +323,8 @@ items = {'melee':[
 		'ironChestArmorSchematic',
 		'ironLegArmorSchematic',
 		'ironBootsSchematic',
-		'ironGlovesSchematic'
-	],'quests':[
+		'ironGlovesSchematic'],
+	'quests':[
 		'questMaster',
 		'challengeQuestMaster',
 		'treasureQuestMaster',
@@ -351,8 +351,8 @@ items = {'melee':[
 		'qt_jennifer',
 		'qt_claude',
 		'qt_sarah',
-		'qt_raphael'
-	],'misc':[
+		'qt_raphael'],
+	'misc':[
 		'yuccaFibers',
 		'wood',
 		'crushedSand',
