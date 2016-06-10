@@ -1,44 +1,117 @@
-from PyQt4 import QtGui, QtCore  # Import the PyQt4 module we'll need
-import sys  # We need sys so that we can pass argv to QApplication
+import telnetlib, sys, re, time
 
-import design  # This file holds our MainWindow and all design related things
+# Games server info
+server = dict(host=sys.argv[1], port=sys.argv[2], password=sys.argv[3])
+print(server)
 
-# it also keeps events etc that we defined in Qt Designer
-import os  # For listing directory methods
+host = server['host']
+port = server['port']
+password = server['password']
 
+# Chat Dictionary
+chat = {
+	1: 'AIR DROP INCOMING!!',
+	2: ' SPAWNING IN 10!!',
+	3: 'WATCH OUT... there is a WILD',
+	4: 'LOOK DOWN... Someone gave you'
+}
 
-class ExampleApp(QtGui.QMainWindow, design.Ui_MainWindow):
-    def __init__(self):
-        # Explaining super is out of the scope of this article
-        # So please google it if you're not familar with it
-        # Simple reason why we use it here is that it allows us to
-        # access variables, methods etc in the design.py file
-        super(self.__class__, self).__init__()
-        self.setupUi(self)  # This is defined in design.py file automatically
-        # It sets up layout and widgets that are defined
-        self.setWindowTitle("7DTD Interactive")
-        self.setWindowIcon(QtGui.QIcon('icon.jpg'))
-        self.startBtn.clicked.connect(self.browse_folder)  # When the button is pressed
-        self.stopBtn.clicked.connect(QtCore.QCoreApplication.instance().quit) # Execute browse_folder function
+# List of words to filter out for prettier wording
+itemList = [
+	'gun',
+	'animal',
+	'zombie',
+	'bear'
+]
 
-    def browse_folder(self):
-        #self.listWidget.clear() # In case there are any existing elements in the list
-        directory = QtGui.QFileDialog.getExistingDirectory(self,
-                                                           "Pick a folder")
-        # execute getExistingDirectory dialog and set the directory variable to be equal
-        # to the user selected directory
+########################################################################
+# ####################### NO EDIT PAST THIS LINE ##################### #
+########################################################################
 
-        if directory: # if user didn't pick a directory don't continue
-            for file_name in os.listdir(directory): # for all files, if any, in the directory
-                self.listWidget.addItem(file_name)  # add file to the listWidget
+# Test if args supplied
+if len(sys.argv) < 2:
+	print('ERROR: No args supplied')
+	sys.exit()
 
+# Get the game command
+cmdList = []
 
-def main():
-    app = QtGui.QApplication(sys.argv)  # A new instance of QApplication
-    form = ExampleApp()  # We set the form to be our ExampleApp (design)
-    form.show()  # Show the form
-    app.exec_()  # and execute the app
+# Loop through args provided
+# Add to the cmdList list for storage
+for x in sys.argv:
+	cmdList.append(x)
 
+print(cmdList)
+# Store arg for chat logic
+whatToSay = int(cmdList[4])
 
-if __name__ == '__main__':  # if we're running file directly and not importing it
-    main()  # run the main function
+# Placeholders
+user = ''
+item = cmdList[2]
+
+# Check if we have a user in args
+if len(sys.argv) > 6:
+	user = cmdList[6]
+
+# checks to see if we have enough args supplied for an item to be given
+if len(sys.argv) > 7:
+	item = cmdList[7].upper()
+
+	# Search list and remove ugly words
+	for a in itemList:
+		if re.match('^'+a+'', item, flags=re.IGNORECASE):
+			if a == 'zombie' or a == 'bear':
+				item = re.sub('^'+a+'', ' '+a.upper()+' ', item, flags=re.IGNORECASE)
+			item = re.sub('^'+a+'', '', item, flags=re.IGNORECASE)
+
+# Remove the first and second element as it is not needed past here
+cmdList.pop(0)
+cmdList.pop(0)
+cmdList.pop(0)
+cmdList.pop(0)
+cmdList.pop(0)
+# Convert the list into a string separated by a space
+cmd = ' '.join(cmdList)
+
+print(cmd)
+
+# connect to remote host
+try:
+	tn = telnetlib.Telnet(host, port)
+except:
+	print('Unable to connect')
+	sys.exit()
+
+# Send Password
+tn.read_until('Password: ', 2)
+tn.write(password + '\n')
+
+# BASIC Say something in game when button pressed
+# Will make this more robust in the future
+if whatToSay == 1:
+	tn.write('say " ' + chat[1] + '" \n')
+elif whatToSay == 2:
+	if item == 'spawnwanderinghorde':
+		tn.write('say "WANDERING HORDE INCOMING" \n')
+	else:
+		tn.write('sayPlayer ' + user + ' "' + item + chat[2] + '" \n')
+		time.sleep(10)
+elif whatToSay == 3:
+	tn.write('sayPlayer ' + user + ' "' + chat[3] + ' ' + item + ' around you!" \n')
+elif whatToSay == 4:
+	if item == "WOOD":
+		tn.write('sayPlayer ' + user + ' "' + chat[4] + ' some ' + item + '!" \n')
+	else:
+		tn.write('sayPlayer ' + user + ' "' + chat[4] + ' a ' + item + '!" \n')
+else:
+	print('OOPS!!')
+	sys.exit()
+
+# Send the command to the game server
+tn.write(cmd + '\n')
+
+# Exit Python Script
+sys.exit()
+
+# Allow interaction with telnet
+tn.mt_interact()
