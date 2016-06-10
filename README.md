@@ -39,3 +39,4 @@ _These instructions have been tested and work on Windows/Linux/mac_
       * py -3 interactive.py _(windows)_
       * python3 interactive.py _(linux/unix)_
 
+8. (Optional) Make a file name "start.bat"(windows) or "start.sh"(linux/unix)
