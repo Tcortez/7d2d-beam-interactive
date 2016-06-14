@@ -1,72 +1,37 @@
 import websocket
-try:
-    import thread
-except ImportError:  # TODO use Threading instead of _thread in python3
-    import _thread as thread
+import _thread as thread
 import time
 import sys
 import json
-import threading
-
 
 
 def on_message(ws, message):
 	response = json.loads(message)
 	print(response, "\n")
-	
-	cmdlist = {}
-	
-	cost = {}
+
 	data = []
-	
-	i = 0
-	for a in response['data']:
-		#i + 1
-		#data[i] = i 
-		c = {
-			'comcall': a["comcall"],
-			'cost': a['cost']
-			}
-		data.append(c)
-		
-	print(data)
-	
-	for k,v in response.items():
-		
-		if v =="cmdran":
-			for a in response['data']:
-				c = {
-					'comcall': a["comcall"],
-					'cost': a['cost']
-					}
-				data.append(c)
-					cmd['rawcommand'] = v[0]['rawcommand'] 
-					cmd['username'] = v[0]['username']
-					cmd['userid'] = v[0]['userid']
-					
-			print(cmd)
-	
-#		while k == 'data':
-#			data['test'] = v[0]["comcall"]
-#			
-#		
-#			print(data)
-		
-			
-		
-		
-	
+	# if event is command store the rawcommand, username, userid
+	# in the data list for use later
+	if response['event'] == 'cmdran':
+		data.append(response['data']['rawcommand'])
+		data.append(response['data']['username'])
+		data.append(response['data']['userid'])
 
+	# see what is in the data list
+	print("\nDATA: ", data)
+
+
+# if error is thrown
 def on_error(ws, error):
-    print(error)
+	print(error)
 
 
+# if connection is closed
 def on_close(ws):
-    print("### closed ###")
+	print("### closed ###")
 
 
-
-
+# open the connection
 def on_open(ws):
 	def run(*args):
 		auth = {
@@ -78,19 +43,16 @@ def on_open(ws):
 			"event": "subscribe",
 			"data": "commands"
 		}
-		
-		
-		
+
+		# send the auth and sub data
 		ws.send(json.dumps(auth))
 		ws.send(json.dumps(sub))
+
+		# keep sending to keep the connection open
 		while True:
 			time.sleep(50)
 			ws.send(json.dumps(auth))
-		
 
-		# ws.close()
-		print("Thread terminating...")
-		
 	thread.start_new_thread(run, ())
 
 
@@ -101,9 +63,9 @@ if __name__ == "__main__":
 	else:
 		host = sys.argv[1]
 	ws = websocket.WebSocketApp(host,
-		on_message=on_message,
-		on_error=on_error,
-		on_close=on_close)
+					on_message=on_message,
+					on_error=on_error,
+					on_close=on_close)
 	ws.on_open = on_open
-	
+
 	ws.run_forever()
