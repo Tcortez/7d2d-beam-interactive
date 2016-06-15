@@ -7,20 +7,15 @@ import json
 
 def on_message(ws, message):
 	response = json.loads(message)
-	print(response, "\n")
-
 	data = []
-	# if event is command store the rawcommand, username, userid
-	# in the data list for use later
-	response['event'] = ''
-	if response['event'] == 'cmdran':
-		data.append(response['data']['rawcommand'])
-		data.append(response['data']['username'])
-		data.append(response['data']['userid'])
 
-	data.append(response)
-	# see what is in the data list
-	print("\nDATA: ", data)
+	if 'event' in response:
+		event = response['event']
+		if event == 'cmdran':
+			data.append(response['data']['rawcommand'])
+			data.append(response['data']['username'])
+			data.append(response['data']['userid'])
+			print(data)
 
 
 # if error is thrown
@@ -53,7 +48,7 @@ def on_open(ws):
 		# keep sending to keep the connection open
 		while True:
 			time.sleep(50)
-			ws.send(json.dumps(auth))
+			ws.send(json.dumps(sub))
 
 	thread.start_new_thread(run, ())
 
