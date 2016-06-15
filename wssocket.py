@@ -8,14 +8,19 @@ import json
 def on_message(ws, message):
 	response = json.loads(message)
 	data = []
-
+	
+	# check if the key event is in the response dict
 	if 'event' in response:
+		# if there store the value
 		event = response['event']
+		# check if the value is cmdran
 		if event == 'cmdran':
+			# if if is cmdran append the values to the data dict
 			data.append(response['data']['rawcommand'])
 			data.append(response['data']['username'])
 			data.append(response['data']['userid'])
-			print(data)
+			
+			# print(data)
 
 
 # if error is thrown
