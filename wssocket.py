@@ -12,11 +12,13 @@ def on_message(ws, message):
 	data = []
 	# if event is command store the rawcommand, username, userid
 	# in the data list for use later
+	response['event'] = ''
 	if response['event'] == 'cmdran':
 		data.append(response['data']['rawcommand'])
 		data.append(response['data']['username'])
 		data.append(response['data']['userid'])
 
+	data.append(response)
 	# see what is in the data list
 	print("\nDATA: ", data)
 
