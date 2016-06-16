@@ -9,31 +9,34 @@ import items
 
 
 def test(streamer, server):
-
+	# Scottybot auth info
 	auth = {
 		"event": "auth",
 		"data": "8d49af56-fdd8-47ea-9a2c-d7711c81f229"
 	}
-
+	
+	# Telnet server info
 	server = server
-	print(server)
-
-	# Path to Python.. can be python2.7 or above for this entry
-	# PYTHON_PATH = '<PATH_TO_PYTHON>';
+	# print(server)
 
 	# Path to Python Telnet Script - USE "/" as separator even on Windows
 	pyscript_path = './telnet.py'
 
 	# 7 Days to Die Player Name
 	steam = server['username']
-
+	
+	# Scotty Bot sub command
 	sub = {
 		"event": "subscribe",
 		"data": "commands"
 	}
 
-	# Spawn Lists
-	# items = [ITEM, QUANTITY]
+	'''
+	Items have variable amounts
+	weapons, parts, clothes, guests, books, buffs, debuffs, tools = 1
+	food, health, explosives <= 10
+	ammunition, misc <= 20
+	'''
 	weapons = items.items['weapons']
 	explosives = items.items['explosives']
 	parts = items.items['parts']
@@ -70,7 +73,7 @@ def test(streamer, server):
 				data.append(response['data']['username'])
 				data.append(response['data']['userid'])
 
-				print(data)
+				# print(data)
 				if data[0] == '!animal':
 					key = random.randrange(0, len(friends))
 					os.system('python {} {} {} {} 3 spawnentity {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, friends[key]))
