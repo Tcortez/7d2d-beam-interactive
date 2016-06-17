@@ -24,6 +24,10 @@ itemList = [
 	'bear'
 ]
 
+# Random range of numbers
+amt1 = random.randrange(0, 20)
+amt2 = random.randrange(0, 10)
+
 ########################################################################
 # ####################### NO EDIT PAST THIS LINE ##################### #
 ########################################################################
@@ -70,6 +74,13 @@ cmdList.pop(0)
 cmdList.pop(0)
 cmdList.pop(0)
 cmdList.pop(0)
+
+if cmdList[-1] == 0:
+	cmdList[-1] = 1
+elif cmdList[-1] == 1:
+	cmdList[-1] = amt1
+elif cmdList[-1] == 2:
+	cmdList[-1] = amt2
 # Convert the list into a string separated by a space
 cmd = ' '.join(cmdList)
 
