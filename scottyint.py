@@ -97,11 +97,12 @@ def on_message(ws, message):
 			data.append(response['data']['rawcommand'])
 			data.append(response['data']['username'])
 			data.append(response['data']['userid'])
+			#print(data)
 
 			# Spawn Animal
 			if data[0] == commands[5]:
 				key = random.randrange(0, len(animals))
-				os.system('python {} {} {} {} 3 spawnentity {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, animals[key]))
+				os.system('python {} {} {} {} 3 spawnentity {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, animals[key][0]))
 				
 			# Spawn Tool
 			elif data[0] == commands[1]:
@@ -139,12 +140,12 @@ def on_message(ws, message):
 				os.system('python {} {} {} {} 4 give {} {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, quests[key][0], quests[key][1]))
 				
 			# Spawn Enemy
-			elif data[0] == commands[7]:
+			elif data[0] == commands[10]:
 				key = random.randrange(0, len(zombies))
 				if num == 73:
 					os.system('python {} {} {} {} 2 spawnwanderinghorde'.format(pyscript_path, server['host'], server['port'], server['password']))
 				else:
-					os.system('python {} {} {} {} 2 spawnentity {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, zombies[key]))
+					os.system('python {} {} {} {} 2 spawnentity {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, zombies[key][0]))
 
 			# Spawn Item 
 			elif data[0] == commands[0]:
@@ -156,19 +157,19 @@ def on_message(ws, message):
 					os.system('python {} {} {} {} 4 give {} {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, allitems[key][0], allitems[key][1]))
 
 			# Spawn Horde
-			elif data[0] == commands[10]:
+			elif data[0] == commands[13]:
 				os.system('python {} {} {} {} 2 spawnwanderinghorde'.format(pyscript_path, server['host'], server['port'], server['password']))
 
 			# Spawn Feral
-			elif data[0] == commands[8]:
+			elif data[0] == commands[11]:
 				os.system('python {} {} {} {} 2 spawnentity {} zombieFeral'.format(pyscript_path, server['host'], server['port'], server['password'], steam))
 
 			# Spawn Screamer
-			elif data[0] == commands[9]:
+			elif data[0] == commands[12]:
 				os.system('python {} {} {} {} 2 spawnentity {} zombieScreamer'.format(pyscript_path, server['host'], server['port'], server['password'], steam))
 
 			# Spawn Airdrop
-			elif data[0] == commands[5]:
+			elif data[0] == commands[7]:
 				os.system('python {} {} {} {} 1 spawnairdrop'.format(pyscript_path, server['host'], server['port'], server['password']))
 
 # if error is thrown
