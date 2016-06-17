@@ -11,14 +11,14 @@ import items
 # Scottybot auth info
 auth = {
 	"event": "auth",
-	"data": "8d49af56-fdd8-47ea-9a2c-d7711c81f229"
+	"data": <"SCOTTYBOT_AUTH_CODE">
 }
 
 server = {
-	'host': '7dtd.atomicyeti.com',
-	'port': 8081,
-	'password': 'MonkeyButt',
-	'username': 'AtomicYetiGaming'
+	'host': <'TELNET_HOST'>
+	'port': <'PORT'>,
+	'password': <'PASSWORD'>,
+	'username': <'PLAYER_NAME'>
 }
 
 
