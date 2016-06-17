@@ -21,9 +21,34 @@ server = {
 	'username': <'PLAYER_NAME'>
 }
 
-
 # Path to Python Telnet Script - USE "/" as separator even on Windows
 pyscript_path = './telnet.py'
+
+# Random range of numbers
+# less chance of an air drop whe using !item
+num = random.randrange(0, 100)
+
+# These can be changed but must match the commands you put in scottybot
+commands = [
+	'!item',
+	'!tool',
+	'!clothes',
+	'!health',
+	'!food',
+	'!animal',
+	'!quest',
+	'!airdrop',
+	'!weapon',
+	'explosives',
+	'!enemy',
+	'!feral',
+	'!screamer',
+	'!horde'
+]
+
+###################################################################################
+# ##########################   NO EDIT BELOW THIS LINE   ######################## #
+###################################################################################
 
 # 7 Days to Die Player Name
 steam = server['username']
@@ -58,15 +83,6 @@ debuffs = items.items['debuffs']
 zombies = items.items['zombies']
 animals = items.items['animals']
 
-# Random range of numbers
-num = random.randrange(0, 100)
-amt = random.randrange(0, 20)
-
-###################################################################################
-# ##########################   NO EDIT BELOW THIS LINE   ######################## #
-###################################################################################
-
-
 def on_message(ws, message):
 	response = json.loads(message)
 	data = []
@@ -82,40 +98,77 @@ def on_message(ws, message):
 			data.append(response['data']['username'])
 			data.append(response['data']['userid'])
 
-			# print(data)
-			if data[0] == '!animal':
+			# Spawn Animal
+			if data[0] == commands[5]:
 				key = random.randrange(0, len(animals))
 				os.system('python {} {} {} {} 3 spawnentity {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, animals[key]))
-
+				
+			# Spawn Tool
+			elif data[0] == commands[1]:
+				key = random.randrange(0, len(tools))
+				os.system('python {} {} {} {} 4 give {} {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, tools[key][0], tools[key][1]))
+				
+			# Spawn Clothes
+			elif data[0] == commands[2]:
+				key = random.randrange(0, len(clothes))
+				os.system('python {} {} {} {} 4 give {} {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, clothes[key][0], clothes[key][1]))
+				
+			# Spawn Explosive
+			elif data[0] == commands[9]:
+				key = random.randrange(0, len(explosives))
+				os.system('python {} {} {} {} 4 give {} {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, explosives[key][0], explosives[key][1]))
+				
+			# Spawn Weapon
+			elif data[0] == commands[8]:
+				key = random.randrange(0, len(explosives))
+				os.system('python {} {} {} {} 4 give {} {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, explosives[key][0], explosives[key][1]))
+				
+			# Spawn Health
+			elif data[0] == commands[3]:
+				key = random.randrange(0, len(health))
+				os.system('python {} {} {} {} 4 give {} {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, health[key][0], health[key][1]))
+				
+			# Spawn Food
+			elif data[0] == commands[4]:
+				key = random.randrange(0, len(food))
+				os.system('python {} {} {} {} 4 give {} {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, food[key][0], food[key][1]))
+				
+			# Spawn Quest
+			elif data[0] == commands[6]:
+				key = random.randrange(0, len(quests))
+				os.system('python {} {} {} {} 4 give {} {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, quests[key][0], quests[key][1]))
+				
 			# Spawn Enemy
-			elif data[0] == '!zombie':
+			elif data[0] == commands[7]:
 				key = random.randrange(0, len(zombies))
 				if num == 73:
 					os.system('python {} {} {} {} 2 spawnwanderinghorde'.format(pyscript_path, server['host'], server['port'], server['password']))
 				else:
 					os.system('python {} {} {} {} 2 spawnentity {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, zombies[key]))
 
-			# Spawn Item
-			elif data[0] == '!item':
+			# Spawn Item 
+			elif data[0] == commands[0]:
 				key = random.randrange(0, len(allitems))
+				# **LESS CHANCE OF AIRDROP THAN BEFORE**
 				if num == 73:
 					os.system('python {} {} {} {} 1 spawnairdrop'.format(pyscript_path, server['host'], server['port'], server['password']))
 				else:
 					os.system('python {} {} {} {} 4 give {} {} {}'.format(pyscript_path, server['host'], server['port'], server['password'], steam, allitems[key][0], allitems[key][1]))
 
 			# Spawn Horde
-			elif data[0] == '!horde':
+			elif data[0] == commands[10]:
 				os.system('python {} {} {} {} 2 spawnwanderinghorde'.format(pyscript_path, server['host'], server['port'], server['password']))
 
 			# Spawn Feral
-			elif data[0] == '!feral':
+			elif data[0] == commands[8]:
 				os.system('python {} {} {} {} 2 spawnentity {} zombieFeral'.format(pyscript_path, server['host'], server['port'], server['password'], steam))
 
-			elif data[0] == '!screamer':
+			# Spawn Screamer
+			elif data[0] == commands[9]:
 				os.system('python {} {} {} {} 2 spawnentity {} zombieScreamer'.format(pyscript_path, server['host'], server['port'], server['password'], steam))
 
 			# Spawn Airdrop
-			elif data[0] == '!airdrop':
+			elif data[0] == commands[5]:
 				os.system('python {} {} {} {} 1 spawnairdrop'.format(pyscript_path, server['host'], server['port'], server['password']))
 
 # if error is thrown
