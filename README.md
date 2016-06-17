@@ -36,9 +36,18 @@ _If you get module errors when trying to run_
 
 5. Open cmd(windows) or terminal(linux/unix)
    * Install module modules you are missing
-         * pip3 install <module> _(window/linux/unix)_
-            * _If if it warns about pip being outdated update it_
-            * _You may have to do this for multiple modules_
+         * pip3 install <module> _(window/linux/unix)_ _If if it warns about pip being outdated update it_
+         * **MODULES USED**
+            * websocket
+            * _thread
+            * time
+            * sys
+            * json
+            * os
+            * random
+            * telnetlib
+            * re
+	
 
 ## You have to add the following commands and costs to Scotty Bot. _(costs are up to you)_
 _Below are the commands that are in the scottyint.py file. You can name your commands whatever you want in Scotty Bot, but you will have to manually change them to match in the scottyint.py file._
@@ -66,6 +75,14 @@ _Below are the commands that are in the scottyint.py file. You can name your com
 7. !weapon
     * Spawns a RANDOM weapon _(ammunition also included)_
 
+8. !explosives
+	* Spawns a RANDOM explosive item
+
+9. !clothes
+	* Spawns a RANDOM piece of clothing
+	
+10. !tool
+	* Spawns a RANDOM tool
 
 ## _Harmful Items_
 
@@ -82,3 +99,13 @@ _Below are the commands that are in the scottyint.py file. You can name your com
 	* Spawns a wandering horde
 
 ### MORE TO COME....
+
+## _Helpful or Harmful_
+
+1. !buff
+	* Still decideing how these will work
+	* 
+2. !debuff
+	* Still decideing how these will work
+
+
