@@ -1,4 +1,8 @@
-import telnetlib, sys, re, time
+import telnetlib
+import sys
+import re
+import time
+import random
 
 # Games server info
 server = dict(host=sys.argv[1], port=sys.argv[2], password=sys.argv[3])
@@ -25,8 +29,8 @@ itemList = [
 ]
 
 # Random range of numbers
-amt1 = random.randrange(0, 20)
-amt2 = random.randrange(0, 10)
+amt1 = random.randrange(1, 20)
+amt2 = random.randrange(1, 10)
 
 ########################################################################
 # ####################### NO EDIT PAST THIS LINE ##################### #
@@ -45,7 +49,7 @@ cmdList = []
 for x in sys.argv:
 	cmdList.append(x)
 
-print(cmdList)
+#print(cmdList)
 # Store arg for chat logic
 whatToSay = int(cmdList[4])
 
@@ -75,16 +79,19 @@ cmdList.pop(0)
 cmdList.pop(0)
 cmdList.pop(0)
 
-if cmdList[-1] == 0:
-	cmdList[-1] = 1
-elif cmdList[-1] == 1:
-	cmdList[-1] = amt1
-elif cmdList[-1] == 2:
-	cmdList[-1] = amt2
+#print cmdList[-1]
+
+if cmdList[-1] == '0':
+	cmdList[-1] = '1'
+	#print("=1 ", cmdList, '\n')
+elif cmdList[-1] == '1':
+	cmdList[-1] = str(amt1)
+elif cmdList[-1] == '2':
+	cmdList[-1] = str(amt2)
 # Convert the list into a string separated by a space
 cmd = ' '.join(cmdList)
 
-print(cmd)
+#print(cmd)
 
 # connect to remote host
 try:
@@ -97,7 +104,7 @@ except:
 tn.read_until(b"Please enter password: ", 4)
 tn.write(password.encode('ascii') + b"\n")
 
-print('\n\n' + item + '\n\n')
+#print('\n\n' + item + '\n\n')
 # BASIC Say something in game when button pressed
 # Will make this more robust in the future
 if whatToSay == 1:
