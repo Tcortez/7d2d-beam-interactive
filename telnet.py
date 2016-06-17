@@ -2,7 +2,7 @@ import telnetlib, sys, re, time
 
 # Games server info
 server = dict(host=sys.argv[1], port=sys.argv[2], password=sys.argv[3])
-print(server)
+# print(server)
 
 host = server['host']
 port = server['port']
@@ -47,7 +47,7 @@ whatToSay = int(cmdList[4])
 
 # Placeholders
 user = ''
-item = cmdList[2]
+item = cmdList[5]
 
 # Check if we have a user in args
 if len(sys.argv) > 6:
@@ -83,32 +83,33 @@ except:
 	sys.exit()
 
 # Send Password
-tn.read_until('Password: ', 2)
-tn.write(password + '\n')
+tn.read_until(b"Please enter password: ", 4)
+tn.write(password.encode('ascii') + b"\n")
 
+print('\n\n' + item + '\n\n')
 # BASIC Say something in game when button pressed
 # Will make this more robust in the future
 if whatToSay == 1:
-	tn.write('say " ' + chat[1] + '" \n')
+	tn.write(b'say " ' + chat[1].encode('ascii') + b'" \n')
 elif whatToSay == 2:
 	if item == 'spawnwanderinghorde':
-		tn.write('say "WANDERING HORDE INCOMING" \n')
+		tn.write(b'say "WANDERING HORDE INCOMING" \n')
 	else:
-		tn.write('sayPlayer ' + user + ' "' + item + chat[2] + '" \n')
+		tn.write(b'sayPlayer ' + user.encode('ascii') + b' "' + item.encode('ascii') + chat[2].encode('ascii') + b'" \n')
 		time.sleep(10)
 elif whatToSay == 3:
-	tn.write('sayPlayer ' + user + ' "' + chat[3] + ' ' + item + ' around you!" \n')
+	tn.write(b'sayPlayer ' + user.encode('ascii') + b' "' + chat[3].encode('ascii') + b' ' + item.encode('ascii') + b' around you!" \n')
 elif whatToSay == 4:
 	if item == "WOOD":
-		tn.write('sayPlayer ' + user + ' "' + chat[4] + ' some ' + item + '!" \n')
+		tn.write(b'sayPlayer ' + user.encode('ascii') + b' "' + chat[4].encode('ascii') + b' some ' + item.encode('ascii') + b'!" \n')
 	else:
-		tn.write('sayPlayer ' + user + ' "' + chat[4] + ' a ' + item + '!" \n')
+		tn.write(b'sayPlayer ' + user.encode('ascii') + b' "' + chat[4].encode('ascii') + b' a ' + item.encode('ascii') + b'!" \n')
 else:
 	print('OOPS!!')
 	sys.exit()
 
 # Send the command to the game server
-tn.write(cmd + '\n')
+tn.write(cmd.encode('ascii') + b'\n')
 
 # Exit Python Script
 sys.exit()
