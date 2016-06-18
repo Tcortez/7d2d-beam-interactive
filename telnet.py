@@ -49,7 +49,7 @@ cmdList = []
 for x in sys.argv:
 	cmdList.append(x)
 
-#print(cmdList)
+# print(cmdList)
 # Store arg for chat logic
 whatToSay = int(cmdList[4])
 
@@ -79,11 +79,11 @@ cmdList.pop(0)
 cmdList.pop(0)
 cmdList.pop(0)
 
-#print cmdList[-1]
+# print cmdList[-1]
 
 if cmdList[-1] == '0':
 	cmdList[-1] = '1'
-	#print("=1 ", cmdList, '\n')
+	# print("=1 ", cmdList, '\n')
 elif cmdList[-1] == '1':
 	cmdList[-1] = str(amt1)
 elif cmdList[-1] == '2':
@@ -91,7 +91,7 @@ elif cmdList[-1] == '2':
 # Convert the list into a string separated by a space
 cmd = ' '.join(cmdList)
 
-#print(cmd)
+# print(cmd)
 
 # connect to remote host
 try:
@@ -104,7 +104,7 @@ except:
 tn.read_until(b"Please enter password: ", 4)
 tn.write(password.encode('ascii') + b"\n")
 
-#print('\n\n' + item + '\n\n')
+# print('\n\n' + item + '\n\n')
 # BASIC Say something in game when button pressed
 # Will make this more robust in the future
 if whatToSay == 1:
