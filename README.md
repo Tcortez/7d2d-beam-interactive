@@ -16,11 +16,9 @@ _These instructions have been tested and work on Windows/Linux/mac_
 1. Download and install Python 3.3 or above
    * Follow instructions at - https://www.python.org/downloads/
 
-2. Download our files _(telnet.py, scottyint.py & items.py)_
-  * Download the files and folders _(will download 7d2d-beam-interactive-python.zip)_
-  * Unzip the files into an easy to remember location _(will create a folder called 7d2d-beam-interactive-python)_
-  * Open the newly unzipped folder and copy telnet.py & interactive.py
-  * Paste our files in the folder created in step 2 _(beam-interactive-python-master - you can change the folder name)_
+2. Download our files _(click Clone or Download button)_
+  * Download the files and folders _(will download 7d2d-beam-interactive-scotty-integration.zip)_
+  * Unzip the files into an easy to remember location _(will create a folder called 7d2d-beam-interactive-scotty-integration)_
 
 3. Open the scottyint.py script _(open with text editor of your choosing)_
    * Change the info on line's 14 & 18 - 21
@@ -32,25 +30,18 @@ _These instructions have been tested and work on Windows/Linux/mac_
       * py -3 scottyint.py _(windows)_
       * python3 scottyint.py _(linux/unix)_
 
+_While the interactive is running you will see in terminal a bunch of lines that look like 
+
 _If you get module errors when trying to run_
 
 5. Open cmd(windows) or terminal(linux/unix)
-   * Install module modules you are missing
-         * pip3 install <module> _(window/linux/unix)_ _If if it warns about pip being outdated update it_
-         * **MODULES USED**
-            * websocket
-            * _thread
-            * time
-            * sys
-            * json
-            * os
-            * random
-            * telnetlib
-            * re
-	
-
+	* Install websocket module
+		* pip3 install websocket _(windows)_ _(If if it warns about pip being outdated update it)_
+		* sudo pip3 install websocket-client _(linux/unix)_
+ 			* linux pip3 uses gcc to compile the modules and gcc looks for a valid Python.h header, which on many Unbuntu/Debian based systems very well may fail as it will look for a Python V2 header that it may or may not find and may or may not be a version mismatch. _(Thanks Bobofett for this knowledge)_
+ 			
 ## You have to add the following commands and costs to Scotty Bot. _(costs are up to you)_
-_Below are the commands that are in the scottyint.py file. You can name your commands whatever you want in Scotty Bot, but you will have to manually change them to match in the scottyint.py file._
+_Below are the commands that are in the scottyint.py file. You can name your commands whatever you want in Scotty Bot, but you will have to manually change them to match in the scottyint.py file. I will make it more smarter later so you will be able to use whatever command you want and not change the scottybotint.py file.... (yes I said more smarter! LMAO)_
 
 ## _Helpful Items_
 
